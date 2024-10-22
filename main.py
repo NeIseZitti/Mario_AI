@@ -20,3 +20,6 @@ import gym_super_mario_bros
 
 from tensordict import TensorDict
 from torchrl.data import TensorDictReplayBuffer, LazyMemmapStorage
+
+
+print("miav")
