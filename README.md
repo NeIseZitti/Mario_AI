@@ -7,7 +7,7 @@ bu proje var ya efsane olcak
 Hazırlanış
 ------------------------------------------------
 Python 3.8 kullanıyoruz. (Bazı kütüphaneler 3.13 ile uyumlu değil)
-
+++ sıkıntı çıktı galiba 3.6 kullanıcaz.
 
 Öncelikle şu kütpaneler lazım olduğundan şu komut terminale yazılır.
 - "pip install -r requirements.txt"
