@@ -52,16 +52,23 @@ def get_enemy_locations(RAM):
 
 print(get_enemy_locations(ram))
 
-for i in range(100000000):
+for i in range(1):
     action = env.action_space.sample()  # Rastgele bir hareket al
     env.step(action)  # Oyunda hareket ettir
     env.render()  # Oyun ekranını göster
     
-    
+    tiles = list(utils.SMB.get_tiles(ram))
+    keys = utils.SMB.get_tiles(ram).keys()
     values = utils.SMB.get_tiles(ram).values()
 
-    print(list(values))
-    
+    print(values)
 
+    keys = list(keys)
+    values = list(values)
 
-    
+    for i in range(15):
+        for j in range(16):
+            print(keys[i*16 + j], end=" ")
+        print()
+
+    #print(values)
