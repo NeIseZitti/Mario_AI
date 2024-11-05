@@ -6,8 +6,14 @@ bu proje var ya efsane olcak
 
 Hazırlanış
 ------------------------------------------------
-Python 3.8 kullanıyoruz. (Bazı kütüphaneler 3.13 ile uyumlu değil)
-++ sıkıntı çıktı galiba 3.6 kullanıcaz.
+Python 3.7 kullandık. (Sebebi ticari sırdır -_- )
+pip 24.0
+gym 0.17.3
+gym-retro 0.8.0
+pillow 9.5.0
+pyqt5 5.15.10
+numpy 1.21.6
+
 
 Öncelikle şu kütpaneler lazım olduğundan şu komut terminale yazılır.
 - "pip install -r requirements.txt"

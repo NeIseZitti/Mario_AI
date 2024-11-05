@@ -1,13 +1,9 @@
 print("miyav")
 
-import gym
 import retro
 
-available_games = retro.data.list_games()
 
-print("Mevcut Oyunlar:")
-
-for game in available_games:
-    print(game)
-
+env = retro.make(game='SuperMarioBros-Nes', state='Level1-1')
+env.reset()
+ram = env.get_ram()
 
