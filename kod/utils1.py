@@ -2,7 +2,6 @@ import numpy as np
 from enum import Enum, unique
 from collections import namedtuple
 
-
 @unique
 class EnemyType(Enum):
     Green_Koopa1 = 0x00
