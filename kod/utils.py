@@ -112,9 +112,8 @@ class SMB(object):
 
     @unique
     class RAMLocations(Enum):
-        # Since the max number of enemies on the screen is 5, the addresses for enemies are
-        # the starting address and span a total of 5 bytes. This means Enemy_Drawn + 0 is the
-        # whether or not enemy 0 is drawn, Enemy_Drawn + 1 is enemy 1, etc. etc.
+        # ekranda maksimum 5 enemy olduğu için tüm ihtihaç olan adresler 5 byte'ın içinde
+        # Enemy_Drawn + 0 enemy0'ın çizilip çizilmediğini söylüyo, Enemy_Drawn + 1 enemy1'inkini vesaire vesaire.
         Enemy_Drawn = 0x0F
         Enemy_Type = 0x16
         Enemy_X_Position_In_Level = 0x6E
@@ -141,23 +140,23 @@ class SMB(object):
             enemy = ram[cls.RAMLocations.Enemy_Drawn.value + enemy_num] # bellekteki enemydrawn değişkenlerini tek tek alıyor.
             # düşman var mi? 1/0
             if enemy:
-                # Get the enemy X location.
+                # enemy x pozisyonunu alır.
                 x_pos_level = ram[cls.RAMLocations.Enemy_X_Position_In_Level.value + enemy_num]
                 x_pos_screen = ram[cls.RAMLocations.Enemy_X_Position_On_Screen.value + enemy_num]
                 enemy_loc_x = (x_pos_level * 0x100) + x_pos_screen #- ram[0x71c]
                 # print(ram[0x71c])
                 # enemy_loc_x = ram[cls.RAMLocations.Enemy_X_Position_Screen_Offset.value + enemy_num]
-                # Get the enemy Y location.
+                # enemy y location'u alır.
                 enemy_loc_y = ram[cls.RAMLocations.Enemy_Y_Position_On_Screen.value + enemy_num]
-                # Set location
+                # location'ı belirler.
                 location = Point(enemy_loc_x, enemy_loc_y)
                 ybin = np.digitize(enemy_loc_y, cls.ybins)
                 xbin = np.digitize(enemy_loc_x, cls.xbins)
                 tile_location = Point(xbin, ybin)
 
-                # Grab the id
+                # id'yi alır.
                 enemy_id = ram[cls.RAMLocations.Enemy_Type.value + enemy_num]
-                # Create enemy-
+                # düşman oluşturur.
                 e = Enemy(0x6, location, tile_location)
 
                 enemies.append(e)
@@ -169,3 +168,114 @@ class SMB(object):
         mario_x = ram[cls.RAMLocations.Player_X_Postion_In_Level.value] * 256 + ram[cls.RAMLocations.Player_X_Position_On_Screen.value]
         mario_y = ram[cls.RAMLocations.Player_Y_Position_Screen_Offset.value]
         return Point(mario_x, mario_y)
+
+    @classmethod
+    def get_mario_location_on_screen(cls, ram: np.ndarray):
+        mario_x = ram[cls.RAMLocations.Player_X_Position_Screen_Offset.value]
+        mario_y = ram[cls.RAMLocations.Player_Y_Pos_On_Screen.value] * ram[cls.RAMLocations.Player_Vertical_Screen_Position.value] + cls.sprite.height
+        return Point(mario_x, mario_y)
+
+    @classmethod
+    def get_tile_type(cls, ram:np.ndarray, delta_x: int, delta_y: int, mario: Point):
+        x = mario.x + delta_x
+        y = mario.y + delta_y + cls.sprite.height
+
+        # tile location 2 page'den oluşuyor. hangisinde olduğuna bakıyoz 
+        page = (x // 256) % 2
+        # page'nin neresinde olduğumuza bakıyoz
+        sub_page_x = (x % 256) // 16
+        sub_page_y = (y - 32) // 16  # picture proccesing unit dünyanın parçası değil, üstteki paralar falan işte çok da kurcalama
+        if sub_page_y not in range(13): # veya sub_page_x not in range(16):
+            return StaticTileType.Empty.value
+
+        addr = 0x500 + page*208 + sub_page_y*16 + sub_page_x
+        return ram[addr]
+
+    @classmethod
+    def get_tile_loc(cls, x, y):
+        row = np.digitize(y, cls.ybins) - 2
+        col = np.digitize(x, cls.xbins)
+        return (row, col)
+
+    @classmethod
+    def get_tiles(cls, ram: np.ndarray):
+        tiles = {}
+        row = 0
+        col = 0
+
+        mario_level = cls.get_mario_location_in_level(ram)
+        mario_screen = cls.get_mario_location_on_screen(ram)
+
+        x_start = mario_level.x - mario_screen.x
+
+        enemies = cls.get_enemy_locations(ram)
+        y_start = 0
+        mx, my = cls.get_mario_location_in_level(ram)
+        my += 16
+        # Set mx to be within the screen offset
+        mx = ram[cls.RAMLocations.Player_X_Position_Screen_Offset.value]
+
+        for y_pos in range(y_start, 240, 16):
+            for x_pos in range(x_start, x_start + 256, 16):
+                loc = (row, col)
+                tile = cls.get_tile(x_pos, y_pos, ram)
+                x, y = x_pos, y_pos
+                page = (x // 256) % 2
+                sub_x = (x % 256) // 16
+                sub_y = (y - 32) // 16                
+                addr = 0x500 + page*208 + sub_y*16 + sub_x
+                
+                # PPU is there, so no tile is there
+                if row < 2:
+                    tiles[loc] =  StaticTileType.Empty
+                else:
+
+                    try:
+                        tiles[loc] = StaticTileType(tile)
+                    except:
+                        tiles[loc] = StaticTileType.Fake
+                    for enemy in enemies:
+                        ex = enemy.location.x
+                        ey = enemy.location.y + 8
+                        # Since we can only discriminate within 8 pixels, if it falls within this bound, count it as there
+                        if abs(x_pos - ex) <=8 and abs(y_pos - ey) <=8:
+                            tiles[loc] = EnemyType.Generic_Enemy
+                # Next col
+                col += 1
+            # Move to next row
+            col = 0
+            row += 1
+
+        # Place marker for mario
+        mario_row, mario_col = cls.get_mario_row_col(ram)
+        loc = (mario_row, mario_col)
+        tiles[loc] = DynamicTileType.Mario
+
+        return tiles
+
+    @classmethod
+    def get_mario_row_col(cls, ram):
+        x, y = cls.get_mario_location_on_screen(ram)
+        # Adjust 16 for PPU
+        y = ram[cls.RAMLocations.Player_Y_Position_Screen_Offset.value] + 16
+        x += 12
+        col = x // 16
+        row = (y - 0) // 16
+        return (row, col)
+
+
+    @classmethod
+    def get_tile(cls, x, y, ram, group_non_zero_tiles=True):
+        page = (x // 256) % 2
+        sub_x = (x % 256) // 16
+        sub_y = (y - 32) // 16
+
+        if sub_y not in range(13):
+            return StaticTileType.Empty.value
+
+        addr = 0x500 + page*208 + sub_y*16 + sub_x
+        if group_non_zero_tiles:
+            if ram[addr] != 0:
+                return StaticTileType.Fake.value
+
+        return ram[addr]
