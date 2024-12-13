@@ -26,7 +26,7 @@ right_and_jump_action = [0, 0, 0, 0, 0, 0, 0, 1, 1]
 def normalize(value, min_value, max_value):
     return (value - min_value) / (max_value - min_value)
 
-
+prev_lives = 2
 for i in range(10000):
     
     env.render()  # Oyun ekranını gösterir.
@@ -88,13 +88,18 @@ for i in range(10000):
         action = right_action
 
 
+
     # Sağ hareketini uygula
     obs, reward, done, info = env.step(action)
-
-    # Oyun biterse resetle
-    if done:
-        env.reset()
-        break
+    
+    # Oyun içinde her frame'de can sayısını kontrol edelim
+    if info['lives'] < prev_lives:
+        print("Mario'nun canı azaldı! Oyun bitiriliyor...")
+        break  # Oyunu bitiririz
+    
+    # Oyunun başında Mario'nun canını kaydedelim
+    prev_lives = info['lives']
+    
 
 env.close()
 

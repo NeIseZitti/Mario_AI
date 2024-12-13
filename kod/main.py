@@ -23,6 +23,8 @@ right_action = [0, 0, 0, 0, 0, 0, 0, 1, 0]
 # Sağ ve zıplama tuşlarına basmayı temsil eden aksiyon dizisi
 right_and_jump_action = [0, 0, 0, 0, 0, 0, 0, 1, 1]
 
+prev_lives = 2 # bu değişken marionun ölüp ölmediğini anlamak için gerekli iki frame arasında
+               # marionun canının azalıp azalmadığını kontrol ediyo.
 for i in range(10000):
 
     env.render()  # Oyun ekranını gösterir.
@@ -83,10 +85,14 @@ for i in range(10000):
     # Sağ hareketini uygula
     obs, reward, done, info = env.step(action)
 
-    # Oyun biterse resetle
-    if done:
-        env.reset()
-        break
+    # Oyun içinde her frame'de can sayısını önceki frame'dekiyle kontrol edelim
+    if info['lives'] < prev_lives:
+        print("Mario'nun canı azaldı! Oyun bitiriliyor...")
+        break  # Oyunu bitiririz
+    
+    # Önceki framedeki lives değişkeni artık şu anki lives değişkeni olacak
+    prev_lives = info['lives']
+
 
 env.close()
 
