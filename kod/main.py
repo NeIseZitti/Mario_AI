@@ -12,19 +12,33 @@ import os  # Konsolu temizlemek için
 def normalize(value, min_value, max_value):
     return (value - min_value) / (max_value - min_value)
 
+# fitness fonksiyonumuz bu olsun
+def fitness(frames, distance, did_win):
+    return max(distance ** 1.9 - \
+            frames ** 1.5 +   \
+            min(max(distance-50, 0), 1) * 2000 + \
+            did_win * 1e6, 0.00001)
+# bu herhangi bi bireyin son noktadaki puanı olcak
+# buna göre aralarından seçim yapıp yeni jenerasyon üreticez
+
 env = retro.make(game='SuperMarioBros-Nes', state='Level1-1')
 env.reset()
 ram = env.get_ram()
 
 
 # Sağ tuşuna basmayı temsil eden aksiyon dizisi
-right_action = [0, 0, 0, 0, 0, 0, 0, 1, 0]
+right_action = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 # Sağ ve zıplama tuşlarına basmayı temsil eden aksiyon dizisi
-right_and_jump_action = [0, 0, 0, 0, 0, 0, 0, 1, 1]
+right_and_jump_action = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+# [0, 0, 0, 0, 0, 0, sol, sağ, zıplama]
 
 prev_lives = 2 # bu değişken marionun ölüp ölmediğini anlamak için gerekli iki frame arasında
                # marionun canının azalıp azalmadığını kontrol ediyo.
+
+
+frames = 0
+did_win = False
 for i in range(10000):
 
     env.render()  # Oyun ekranını gösterir.
@@ -84,14 +98,32 @@ for i in range(10000):
 
     # Sağ hareketini uygula
     obs, reward, done, info = env.step(action)
-
+    
+    frames+=1
+    
+    
     # Oyun içinde her frame'de can sayısını önceki frame'dekiyle kontrol edelim
-    if info['lives'] < prev_lives:
+    # ram[0x001d] == 0x03 bu marionun flagpole animasyonununa girip girmediğini söylüyo
+    if info['lives'] < prev_lives or ram[0x001d] == 0x03:
         print("Mario'nun canı azaldı! Oyun bitiriliyor...")
+
+        distance = utils.SMB.get_mario_location_in_level(ram).x
+        print("distance:", distance)
+        print("frames:", frames)
+        
+        if(ram[0x001d] == 0x03):
+            did_win = True
+
+        print("did win:", did_win)
+
+
+        print("fitness:", fitness(frames, distance, did_win))
+
         break  # Oyunu bitiririz
     
     # Önceki framedeki lives değişkeni artık şu anki lives değişkeni olacak
     prev_lives = info['lives']
+
 
 
 env.close()
@@ -100,11 +132,4 @@ env.close()
 
 
 
-# fitness fonksiyonumuz bu olsun
-def fitness(frames, distance, did_win):
-    return max(distance ** 1.9 - \
-            frames ** 1.5 +   \
-            min(max(distance-50, 0), 1) * 2000 + \
-            did_win * 1e6, 0.00001)
-# bu herhangi bi bireyin son noktadaki puanı olcak
-# buna göre aralarından seçim yapıp yeni jenerasyon üreticez
+

@@ -6,7 +6,7 @@ import random
 with open('chromosomes.json', 'r') as f:
     data = json.load(f)
 
-# Başlangıçta 64 Mario'yu tutacak array
+# Başlangıçta 64 Mario'yu tutacak arrayin özellikleri için
 num_marios = 64  # 64 Mario
 input_size = 70  # Girdiler
 hidden_layer_1 = 64  # 1. katman

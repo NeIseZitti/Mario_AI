@@ -1,4 +1,3 @@
-
 # bu dosya sadece sadece başlangıçta 1 defaya mahsus çalıştırılır.
 # eğer istersek başka bağımsız popülasyonlar oluşturmak için de kullanılır.
 # 70 64 32 6
