@@ -344,11 +344,11 @@ while True:
                 
                 finish_rate_values[mario_id] = 0
                 distance_values[mario_id] = distance
-                frame_values[mario_id] = frames
+                frame_values[mario_id] = 9821 # bu değer erkenden birilerinin ölüp zaman grafiğini kötü göstermesin diye
 
                 if did_win:
                     finish_rate_values[mario_id] = 1
-                    frame_values[mario_id] = 9821 # bu değer erkenden birilerinin ölüp grafiği kötü göstermesin diye
+                    frame_values[mario_id] = frames 
 
                 fitness_values[mario_id] = fitness(frames, distance, did_win)
                 
