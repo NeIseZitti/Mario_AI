@@ -192,7 +192,7 @@ def save_generation(generation, stats=None):
     with open(history_json, 'w') as file:
         json.dump(data, file, indent=4)
 
-    print(f"Generation {generation} saved successfully!")
+    print(f"Jenerasyon {generation} istatiskleri başarıyla kaydedildi!")
 
 
 def elitist_selection(fitness_values, marios, num_elites=16):
@@ -230,7 +230,7 @@ def save_marios_to_json():
     with open('chromosomes.json', 'w') as f:
         json.dump(data, f, indent=4)
     
-    print("JSON dosyasına kaydedildi.")
+    print("Yeni kromozomlar kaydedildi.")
 
 
 # tanımların sonu
