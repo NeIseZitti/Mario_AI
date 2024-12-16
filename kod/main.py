@@ -298,7 +298,7 @@ while True:
         # 1 tane marionun döngüsü
         while True:
             
-            env.render()  # Oyun ekranını gösterir. eğitirkken daha hızlı olması için kapattık ama izlemek için açılınabilir.
+            # env.render()  # Oyun ekranını gösterir. eğitirkken daha hızlı olması için kapattık ama izlemek için açılınabilir.
             
             ram = env.get_ram()
 
