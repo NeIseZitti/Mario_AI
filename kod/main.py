@@ -290,7 +290,7 @@ while True:
         frames = 0
         did_win = False
 
-        # env.reset()  # Her Mario için oyunu sıfırlıyoruz
+        env.reset()  # Her Mario için oyunu sıfırlıyoruz
         
         print(f"Mario {mario_id} başlatılıyor...")
 
