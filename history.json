@@ -1,5 +1,5 @@
 {
-    "generation": 34,
+    "generation": 52,
     "stats": {
         "generation_1": {
             "average_fitness": 15900.139719274874,
@@ -202,6 +202,114 @@
         "generation_34": {
             "average_fitness": 639504.9061688579,
             "average_distance": 778.015625,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_35": {
+            "average_fitness": 672437.5948583226,
+            "average_distance": 802.390625,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_36": {
+            "average_fitness": 629631.3311393427,
+            "average_distance": 764.59375,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_37": {
+            "average_fitness": 672696.0687390316,
+            "average_distance": 777.140625,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_38": {
+            "average_fitness": 669688.9771927313,
+            "average_distance": 783.359375,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_39": {
+            "average_fitness": 667665.582607345,
+            "average_distance": 775.484375,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_40": {
+            "average_fitness": 679783.9391950556,
+            "average_distance": 784.90625,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_41": {
+            "average_fitness": 713309.2535335281,
+            "average_distance": 809.3125,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_42": {
+            "average_fitness": 736869.8379346627,
+            "average_distance": 834.0625,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_43": {
+            "average_fitness": 773512.8544308984,
+            "average_distance": 846.453125,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_44": {
+            "average_fitness": 771463.9054603484,
+            "average_distance": 839.9375,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_45": {
+            "average_fitness": 771385.3992517163,
+            "average_distance": 829.890625,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_46": {
+            "average_fitness": 766602.0734206975,
+            "average_distance": 806.25,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_47": {
+            "average_fitness": 918348.2210476582,
+            "average_distance": 914.890625,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_48": {
+            "average_fitness": 924729.5771512119,
+            "average_distance": 917.28125,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_49": {
+            "average_fitness": 901054.532728948,
+            "average_distance": 891.265625,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_50": {
+            "average_fitness": 943009.7885475087,
+            "average_distance": 925.40625,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_51": {
+            "average_fitness": 920791.2454723712,
+            "average_distance": 912.6875,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_52": {
+            "average_fitness": 850497.428768228,
+            "average_distance": 880.15625,
             "average_frames": 9821.0,
             "average_finish_rate": 0.0
         }

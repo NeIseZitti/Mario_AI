@@ -35,3 +35,12 @@ Bu kadar.
 
 ------------------------------------------------
 
+geliştirilecek düzeltilecek çok şey var. hepsini yazmıcam ama aklıma gelmişken yazıyım.
+
+mesela ilk 16 marionun fitness'ını zaten öncesinden hesaplıyoruz. biz her jenerasyonda 48 tane hesaplasak yetmeli aslında.
+
+cpu'da yapıyoz yavaş oluyo mesela. ve thread kullanmıyoz yavaş oluyo o yüzden de.
+
+bir sürü dönüşüm gereksiz if ler vesaire vesaire detay birsürü optimizasyon.
+
+python kullanmak da hatalardan birisi.

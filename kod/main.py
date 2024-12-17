@@ -8,6 +8,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 # Başlangıçta 64 Mario'yu tutacak arrayin özellikleri için
 num_marios = 64  # 64 Mario
 input_size = 70  # Girdiler
@@ -298,7 +299,7 @@ while True:
         # 1 tane marionun döngüsü
         while True:
             
-            env.render()  # Oyun ekranını gösterir. eğitirkken daha hızlı olması için kapattık ama izlemek için açılınabilir.
+            # env.render()  # Oyun ekranını gösterir. eğitirkken daha hızlı olması için kapattık ama izlemek için açılınabilir.
             
             ram = env.get_ram()
 
