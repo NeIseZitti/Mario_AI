@@ -75,7 +75,7 @@ def crossover(parent1, parent2):
 
 
 # weight ve bias değerlerini belirli miktar değiştirecek mutasyon fonksiyonu
-def mutate(mario, mutation_rate=0.1):
+def mutate(mario, mutation_rate=0.05):
     """
     Mario'nun ağırlık ve biaslarına ±%5 mutasyon uygular.
     Args:
@@ -342,6 +342,7 @@ while True:
             if info['lives'] < prev_lives or did_win:
                 
                 distance = utils.SMB.get_mario_location_in_level(ram).x
+                print("mario", mario_id, "distance:", distance)
                 
                 finish_rate_values[mario_id] = 0
                 distance_values[mario_id] = distance

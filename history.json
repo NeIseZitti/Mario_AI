@@ -1,5 +1,5 @@
 {
-    "generation": 89,
+    "generation": 90,
     "stats": {
         "generation_1": {
             "average_fitness": 15900.139719274874,
@@ -532,6 +532,12 @@
         "generation_89": {
             "average_fitness": 731372.1373034258,
             "average_distance": 756.0,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_90": {
+            "average_fitness": 725297.2031253125,
+            "average_distance": 755.25,
             "average_frames": 9821.0,
             "average_finish_rate": 0.0
         }
