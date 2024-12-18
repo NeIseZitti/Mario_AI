@@ -75,7 +75,7 @@ def crossover(parent1, parent2):
 
 
 # weight ve bias değerlerini belirli miktar değiştirecek mutasyon fonksiyonu
-def mutate(mario, mutation_rate=0.05):
+def mutate(mario, mutation_rate=0.1):
     """
     Mario'nun ağırlık ve biaslarına ±%5 mutasyon uygular.
     Args:
@@ -155,7 +155,7 @@ def action_to_buttons(action):
 # fitness fonksiyonumuz bu olsun
 def fitness(frames, distance, did_win):
     return max(distance ** 2 - \
-            frames ** 1.2 +   \
+            frames ** 1 +   \
             min(max(distance-50, 0), 1) * 100 + \
             did_win * 1e5, 0.00001)
 # bu herhangi bi bireyin son noktadaki puanı olcak
