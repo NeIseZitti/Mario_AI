@@ -35,7 +35,7 @@ for mario_id in range(num_marios):
     mario_params[f'mario_{mario_id+1}'] = {'weights': weights, 'biases': biases}
 
 # JSON dosyasına kaydetme
-with open('chromosomes_2.json', 'w') as json_file:
+with open('chromosomes_3.json', 'w') as json_file:
     json.dump(mario_params, json_file, indent=4)
 
 print("Kromozomlar başarıyla oluşturuldu.")
