@@ -196,7 +196,7 @@ def save_generation(generation, stats=None):
     print(f"Jenerasyon {generation} istatiskleri başarıyla kaydedildi!")
 
 
-def elitist_selection(fitness_values, marios, num_elites=16):
+def deterministic_selection(fitness_values, marios, num_elites=16):
     fitness_values = np.array(fitness_values)
     # Fitness değerlerini sıralayıp en iyi indeksleri bul
     elite_indices = np.argsort(fitness_values)[-num_elites:][::-1]  # En yüksek fitness'lar
@@ -383,9 +383,9 @@ while True:
         print(f"JSON kaydedilirken hata oluştu: {e}")
 
     # döngünün sonraki adımına geçmeden önce bi selection algorithm lazım
-    marios = elitist_selection(fitness_values, marios)
+    marios = deterministic_selection(fitness_values, marios)
 
-    # Marios array'ini elitist seçme işlemi sonrası kaydet
+    # Marios array'ini deterministic seçme işlemi sonrası kaydet
     save_marios_to_json()  # Her jenerasyonun sonunda manuel olarak kaydediyoruz
 
     print()
