@@ -155,7 +155,7 @@ def action_to_buttons(action):
 # fitness fonksiyonumuz bu olsun
 def fitness(frames, distance, did_win):
     return max(distance ** 2 - \
-            frames ** 1 +   \
+            frames ** 1.2 +   \
             min(max(distance-50, 0), 1) * 100 + \
             did_win * 1e5, 0.00001)
 # bu herhangi bi bireyin son noktadaki puanı olcak
@@ -299,7 +299,7 @@ while True:
         # 1 tane marionun döngüsü
         while True:
             
-            env.render()  # Oyun ekranını gösterir. eğitirkken daha hızlı olması için kapattık ama izlemek için açılınabilir.
+            # env.render()  # Oyun ekranını gösterir. eğitirkken daha hızlı olması için kapattık ama izlemek için açılınabilir.
             
             ram = env.get_ram()
 

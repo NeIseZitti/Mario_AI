@@ -1,5 +1,5 @@
 {
-    "generation": 92,
+    "generation": 100,
     "stats": {
         "generation_1": {
             "average_fitness": 15900.139719274874,
@@ -550,6 +550,54 @@
         "generation_92": {
             "average_fitness": 777859.4843751562,
             "average_distance": 804.84375,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_93": {
+            "average_fitness": 640653.8281251562,
+            "average_distance": 758.25,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_94": {
+            "average_fitness": 653394.171875,
+            "average_distance": 765.09375,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_95": {
+            "average_fitness": 731910.59375,
+            "average_distance": 823.3125,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_96": {
+            "average_fitness": 733582.484375,
+            "average_distance": 825.46875,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_97": {
+            "average_fitness": 688398.0000001562,
+            "average_distance": 780.75,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_98": {
+            "average_fitness": 709477.125,
+            "average_distance": 801.984375,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_99": {
+            "average_fitness": 733162.828125,
+            "average_distance": 816.15625,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_100": {
+            "average_fitness": 800862.96875,
+            "average_distance": 861.84375,
             "average_frames": 9821.0,
             "average_finish_rate": 0.0
         }
