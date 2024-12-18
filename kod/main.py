@@ -365,6 +365,7 @@ while True:
     average_distance = sum(distance_values) / 64
     average_frames = sum(frame_values) / 64
     finish_rate = sum(finish_rate_values) / 64
+    print()
     print(f"Average Fitness: {average_fitness}")
     print(f"Average Distance: {average_distance}")
     print(f"Average Frames: {average_frames}")
