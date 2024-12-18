@@ -299,7 +299,7 @@ while True:
         # 1 tane marionun döngüsü
         while True:
             
-            # env.render()  # Oyun ekranını gösterir. eğitirkken daha hızlı olması için kapattık ama izlemek için açılınabilir.
+            env.render()  # Oyun ekranını gösterir. eğitirkken daha hızlı olması için kapattık ama izlemek için açılınabilir.
             
             ram = env.get_ram()
 
@@ -336,14 +336,22 @@ while True:
 
             frames+=1
 
+            # bunu sonradan ekledim(93. jenerasyon başlangıcında) canının azalıp azalmadığına zaten bakıyosun diyebilirsiniz ama durun.
+            # eklememin sebebi bir marionun düştüğünde bile sağ tuşuna basarak hala distance değerini bir süre artırması ve ödül kazanması.
+            # bu haksız ödül kazanımına ve kötü alışkanlığa engel olmak için koydum. İleride bir soruna neden olur mu bilmiyorum.
+            has_fallen = utils.SMB.get_mario_location_in_level(ram).y > 230 
+            
             # Oyun içinde her frame'de can sayısını önceki frame'dekiyle kontrol edelim
             # ram[0x001d] == 0x03 bu marionun flagpole animasyonununa girip girmediğini söylüyo
             did_win = ram[0x001d] == 0x03
-            if info['lives'] < prev_lives or did_win:
+            
+            if info['lives'] < prev_lives or did_win or has_fallen:
                 
                 distance = utils.SMB.get_mario_location_in_level(ram).x
+                
                 print("mario", mario_id, "distance:", distance)
                 
+
                 finish_rate_values[mario_id] = 0
                 distance_values[mario_id] = distance
                 frame_values[mario_id] = 9821 # bu değer erkenden birilerinin ölüp zaman grafiğini kötü göstermesin diye
