@@ -8,6 +8,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# bu kodda uniform crossover ve elitist roulette selection kullandım. ve mutasyonu ruletle seçilen ebeveynlere de uyguladım.
 
 # Başlangıçta 64 Mario'yu tutacak arrayin özellikleri için
 num_marios = 64  # 64 Mario
@@ -52,7 +53,7 @@ for mario_id in range(16):
 # tanımların başlangıcı
 
 # 16 marioyu 64 marioya çıkarmak için kullanacağımız crossover fonksiyonu
-def crossover(parent1, parent2):
+def uniform_crossover(parent1, parent2):
     """İki ebeveynin ağırlık ve biaslarını rastgele birleştirerek yeni bir çocuk oluşturur."""
     child_weights = []
     child_biases = []
@@ -240,9 +241,9 @@ def deterministic_selection(fitness_values, marios, num_elites=16):
     return marios
 
 
-def elitist_and_roulette_selection(fitness_values, marios, num_elites=4, total_selected=16):
+def elitist_roulette_selection(fitness_values, marios, num_elites=4, total_selected=16):
     """
-    4 elit Mario'yu koruyup, kalan 12 Mario'yu rlet (roulette wheel) seçimiyle seçen fonksiyon.
+    4 elit Mario'yu koruyup, kalan 12 Mario'yu rulet (roulette wheel) seçimiyle seçen fonksiyon.
     Args:
         fitness_values (list veya np.ndarray): Mario'ların fitness değerleri.
         marios (np.ndarray): Mario'ları temsil eden dizi.
@@ -265,13 +266,17 @@ def elitist_and_roulette_selection(fitness_values, marios, num_elites=4, total_s
     probabilities = remaining_fitness / remaining_fitness.sum()
     
     # 4. Kalan 12 bireyi rulet (roulette wheel) seçimiyle belirle
-    num_roulette = total_selected - num_elites
+    num_roulette = total_selected - num_elites  # 12 Mario seçilecek
     roulette_selected = random.choices(remaining_marios, weights=probabilities, k=num_roulette)
     
     # 5. Elitleri ve rulet ile seçilen bireyleri birleştir
+    # Bu satırdaki boyut uyumsuzluğunu engellemek için `roulette_selected`'i np.array'ye dönüştürüyoruz
+    roulette_selected = np.array(roulette_selected)
+    
+    # Yeni popülasyonu oluştur
     new_population = np.empty_like(marios)
     new_population[:num_elites] = elites
-    new_population[num_elites:] = roulette_selected
+    new_population[num_elites:num_elites+num_roulette] = roulette_selected
     
     return new_population
 
@@ -323,7 +328,7 @@ current_generation = load_generation()
 
 # tüm programın döngüsü // veya jenerasyonların döngüsü
 while True:
-    print(f"Jenerasyon {current_generation+1} başlatılıyor...")
+    print(f"jenerasyon {current_generation+1} başlatılıyor...")
     print()
 
     # İlk 16 Mario’dan 64 Mario’ya çıkış (crossorver ile)
@@ -333,11 +338,11 @@ while True:
         parent2 = random.choice(marios[:16])
         
         # Çocuk oluştur ve mevcut marios array'ine ekle
-        marios[i] = single_point_crossover(parent1, parent2)
+        marios[i] = uniform_crossover(parent1, parent2)
 
 
     # Yeni Mario'lara mutasyon uygulama
-    for i in range(16, 64):  # İlk 16 Mario'yu koruyoruz, geri kalan 48'e mutasyon uyguluyoruz
+    for i in range(4, 64):  # İlk 4 Mario'yu koruyoruz, geri kalan 60'a mutasyon uyguluyoruz
         marios[i] = mutate(marios[i])
     
     # İstatistikler için tuttuğumuz şeyler;
@@ -362,7 +367,7 @@ while True:
 
         env.reset()  # Her Mario için oyunu sıfırlıyoruz
         
-        print(f"Mario {mario_id} başlatılıyor...")
+        print(f"mario {mario_id} başlatılıyor...")
 
 
         # 1 tane marionun döngüsü
@@ -418,9 +423,11 @@ while True:
                 
                 distance = utils.SMB.get_mario_location_in_level(ram).x
                 
-                print("mario", mario_id, "distance:", distance)
-                
+                fitness_value = fitness(frames, distance, did_win)
 
+                print("mario", mario_id, "distance:", distance)
+                print("mario", mario_id, "fitness:", fitness_value)
+                
                 finish_rate_values[mario_id] = 0
                 distance_values[mario_id] = distance
                 frame_values[mario_id] = 9821 # bu değer erkenden birilerinin ölüp zaman grafiğini kötü göstermesin diye
@@ -429,7 +436,7 @@ while True:
                     finish_rate_values[mario_id] = 1
                     frame_values[mario_id] = frames 
 
-                fitness_values[mario_id] = fitness(frames, distance, did_win)
+                fitness_values[mario_id] = fitness_value
                 
                 break  # Oyunu bitiririz
 
@@ -462,12 +469,12 @@ while True:
         print(f"JSON kaydedilirken hata oluştu: {e}")
 
     # döngünün sonraki adımına geçmeden önce bi selection algorithm lazım
-    marios = elitist_and_roulette_selection(fitness_values, marios)
+    marios = elitist_roulette_selection(fitness_values, marios)
 
     # Marios array'ini deterministic seçme işlemi sonrası kaydet
     save_marios_to_json()  # Her jenerasyonun sonunda manuel olarak kaydediyoruz
 
     print()
-    print(f"Jenerasyon {current_generation} sonlandı.")
+    print(f"jenerasyon {current_generation} sonlandı.")
 
 # program döngüsünün sonu

@@ -1,0 +1,11 @@
+{
+    "generation": 1,
+    "stats": {
+        "generation_1": {
+            "average_fitness": 25594.927826641087,
+            "average_distance": 116.328125,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        }
+    }
+}
