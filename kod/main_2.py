@@ -243,7 +243,7 @@ def deterministic_selection(fitness_values, marios, num_elites=16):
 
 def elitist_roulette_selection(fitness_values, marios, num_elites=4, total_selected=16):
     """
-    4 elit Mario'yu koruyup, kalan 12 Mario'yu rulet (roulette wheel) seçimiyle seçen fonksiyon.
+    4 elit Mario'yu fitness değerine göre azalan sırada yerleştirir ve kalan 12 Mario'yu rulet (roulette wheel) seçimiyle belirler.
     Args:
         fitness_values (list veya np.ndarray): Mario'ların fitness değerleri.
         marios (np.ndarray): Mario'ları temsil eden dizi.
@@ -254,8 +254,8 @@ def elitist_roulette_selection(fitness_values, marios, num_elites=4, total_selec
     """
     fitness_values = np.array(fitness_values)
     
-    # 1. En iyi 4 Mario'yu elit olarak seç
-    elite_indices = np.argsort(fitness_values)[-num_elites:]  # En yüksek fitness değerleri
+    # 1. En iyi 4 Mario'yu fitness'a göre azalan sırayla seç
+    elite_indices = np.argsort(fitness_values)[-num_elites:][::-1]  # En yüksek fitness değerlerini azalan sırayla al
     elites = marios[elite_indices]
 
     # 2. Rulet seçimi için kalan bireyleri ayır
@@ -270,13 +270,10 @@ def elitist_roulette_selection(fitness_values, marios, num_elites=4, total_selec
     roulette_selected = random.choices(remaining_marios, weights=probabilities, k=num_roulette)
     
     # 5. Elitleri ve rulet ile seçilen bireyleri birleştir
-    # Bu satırdaki boyut uyumsuzluğunu engellemek için `roulette_selected`'i np.array'ye dönüştürüyoruz
-    roulette_selected = np.array(roulette_selected)
-    
-    # Yeni popülasyonu oluştur
+    roulette_selected = np.array(roulette_selected)  # Boyut uyumsuzluğunu önlemek için array'e dönüştür
     new_population = np.empty_like(marios)
-    new_population[:num_elites] = elites
-    new_population[num_elites:num_elites+num_roulette] = roulette_selected
+    new_population[:num_elites] = elites  # İlk 4 Mario azalan sırayla
+    new_population[num_elites:num_elites + num_roulette] = roulette_selected
     
     return new_population
 
