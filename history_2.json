@@ -1,5 +1,5 @@
 {
-    "generation": 43,
+    "generation": 49,
     "stats": {
         "generation_1": {
             "average_fitness": 25594.927826641087,
@@ -256,6 +256,42 @@
         "generation_43": {
             "average_fitness": 610691.590024481,
             "average_distance": 753.21875,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_44": {
+            "average_fitness": 670017.3894897057,
+            "average_distance": 806.171875,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_45": {
+            "average_fitness": 603650.8912680112,
+            "average_distance": 754.671875,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_46": {
+            "average_fitness": 645276.1484709022,
+            "average_distance": 778.15625,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_47": {
+            "average_fitness": 637364.1551395815,
+            "average_distance": 772.09375,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_48": {
+            "average_fitness": 560991.782935686,
+            "average_distance": 724.6875,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_49": {
+            "average_fitness": 593942.8481638911,
+            "average_distance": 747.203125,
             "average_frames": 9821.0,
             "average_finish_rate": 0.0
         }
