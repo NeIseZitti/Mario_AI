@@ -9,7 +9,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 # bu kodda uniform crossover ve elitist roulette selection kullandım. ve mutasyonu ruletle seçilen ebeveynlere de uyguladım.
-# jenerasyon 50 den itibaren mutasyonu %10 yapıcam.
+# jenerasyon 50 den itibaren mutasyonu %10 yapıcam. Gelişme olmazsa 60'da %2.5 yaparım herhalde
 
 # Başlangıçta 64 Mario'yu tutacak arrayin özellikleri için
 num_marios = 64  # 64 Mario
