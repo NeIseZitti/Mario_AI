@@ -1,5 +1,5 @@
 {
-    "generation": 69,
+    "generation": 73,
     "stats": {
         "generation_1": {
             "average_fitness": 25594.927826641087,
@@ -412,6 +412,30 @@
         "generation_69": {
             "average_fitness": 571555.6965365012,
             "average_distance": 696.390625,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_70": {
+            "average_fitness": 497224.450028626,
+            "average_distance": 640.71875,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_71": {
+            "average_fitness": 468908.23824594123,
+            "average_distance": 620.296875,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_72": {
+            "average_fitness": 554500.6039384856,
+            "average_distance": 659.390625,
+            "average_frames": 9821.0,
+            "average_finish_rate": 0.0
+        },
+        "generation_73": {
+            "average_fitness": 543481.1214093135,
+            "average_distance": 664.15625,
             "average_frames": 9821.0,
             "average_finish_rate": 0.0
         }
