@@ -1,9 +1,6 @@
 # Mario_AI
 miyav
 
-bu proje var ya efsane olcak
-
-
 Hazırlanış
 ------------------------------------------------
 Python 3.7 kullandık. (Sebebi ticari sırdır -_- )
@@ -14,18 +11,14 @@ pillow 9.5.0
 pyqt5 5.15.10
 numpy 1.21.6
 
-
 Öncelikle şu kütpaneler lazım olduğundan şu komut terminale yazılır.
 - "pip install -r requirements.txt"
-
 
 Sonra aşağıdaki oyunun .nes dosyası alınır. Bir dosyanın içine konur.
 - "https://wowroms.com/en/roms/nintendo-entertainment-system/super-mario-bros./23755.html"
 
-
 Alttaki gibi bir komut ile oyunumuz retro gym kütüphanesindeki oyunlara eklenir.
 - python -m retro.import "C:\Dev\Mario"
-
 
 Şunun gibi bir sonuç alınır.
 - Importing SuperMarioBros-Nes
@@ -33,8 +26,15 @@ Alttaki gibi bir komut ile oyunumuz retro gym kütüphanesindeki oyunlara ekleni
 
 Bu kadar.
 
+Kodun Kullanılışı
 ------------------------------------------------
+Başlangıç popülasyonu oluşturmak için chromosome generator çalıştır. (aynı isimle iki tane json oluşturusansilinir elinle düzeltmen lazım.)
 
+Başlangıç popülasyonunu oluşturduktan sonra main veya main_2 çalıştırılır ve bu kadar. (hangi kromozomu ve hangi history dosyasını kullanacağını elinle değiştirmen lazım yine.)
+
+Sonrasında istatistik çıkarmak istersen statistics kaynak kodunu çalıştırırsın. (hangi history dosyasını çizeceğini elinle değiştirmen gerek.)
+
+------------------------------------------------
 geliştirilecek düzeltilecek çok şey var. hepsini yazmıcam ama aklıma gelmişken yazıyım.
 
 mesela ilk 16 marionun fitness'ını zaten öncesinden hesaplıyoruz. biz her jenerasyonda 48 tane hesaplasak yetmeli aslında.
@@ -44,3 +44,4 @@ cpu'da yapıyoz yavaş oluyo mesela. ve thread kullanmıyoz yavaş oluyo o yüzd
 bir sürü dönüşüm gereksiz if ler vesaire vesaire detay birsürü optimizasyon.
 
 python kullanmak da hatalardan birisi.
+
